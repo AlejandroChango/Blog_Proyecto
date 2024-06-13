@@ -1,16 +1,41 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule) },
-  { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomePageModule), canActivate: [AuthGuard] },
   {
-    path: 'content',
-    loadChildren: () => import('./content/content.module').then( m => m.ContentPageModule), canActivate: [AuthGuard] },
-  
-
+    path: 'home',
+    loadChildren: () =>
+      import('./home/home.module').then((m) => m.HomePageModule),
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'splash-screen',
+    loadChildren: () =>
+      import('./splash-screen/splash-screen.module').then(
+        (m) => m.SplashScreenPageModule
+      ),
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./dashboard/dashboard.module').then((m) => m.DashboardPageModule),
+  },
+  {
+    path: 'signup',
+    loadChildren: () =>
+      import('./signup/signup.module').then((m) => m.SignupPageModule),
+  },
+  {
+    path: 'splash-screen',
+    loadChildren: () =>
+      import('./splash-screen/splash-screen.module').then(
+        (m) => m.SplashScreenPageModule
+      ),
+  },
 ];
 
 @NgModule({

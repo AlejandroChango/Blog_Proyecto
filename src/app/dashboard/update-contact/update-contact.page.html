@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard/contact"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Blog</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label position="floating">Titulo:</ion-label>
+    <ion-input [(ngModel)]="contacto.lastName" name="lastName" required></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Blog</ion-label>
+    <ion-textarea [(ngModel)]="contacto.name" name="name" rows="6" style="padding: 10px;"></ion-textarea>
+
+  </ion-item>
+
+    <ion-item *ngIf="!selectedFile"class="image-item">
+    <ion-label>Foto anterior</ion-label>
+    <img *ngIf="contacto.downloadUrl" [src]="contacto.downloadUrl" [alt]="contacto.name" >
+  </ion-item>
+  <ion-item class="image-item">
+    <ion-label>Foto del Blog</ion-label>
+    <ion-button (click)="takePhoto()">Tomar foto</ion-button>
+    <ion-button (click)="selectFromGallery()">Seleccionar de la galería</ion-button>
+
+    <img *ngIf="selectedFile" [src]="selectedFile.webPath" [alt]="selectedFile.dataUrl" width="100">
+  </ion-item>
+
+  <ion-button expand="full" (click)="guardarCambios()">Guardar cambios</ion-button>
+</ion-content>

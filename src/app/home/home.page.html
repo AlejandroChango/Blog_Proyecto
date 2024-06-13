@@ -1,20 +1,39 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Blank
+      Iniciar Sesión
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <div class="container">
+    <section class="center-login">
+      <form (ngSubmit)="onLogin()">
+        <ion-item>
+          <ion-label position="floating">Correo Electrónico</ion-label>
+          <ion-input type="email" [(ngModel)]="user.email" name="email" required></ion-input>
+        </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+        <ion-item>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="user.password" name="password" required></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit" class="button-login">Iniciar Sesión</ion-button>
+      </form>
+      
+      <ion-button  color="warning"  expand="full" (click)="loginWithGoogle()" class="google-login">
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        Inicia con Google
+      </ion-button>
+      
+      <div class="button-nuevoregistro">
+        <ion-button expand="block" type="submit" (click)="goToSignupPage()" class="button-login">Regístrate</ion-button>
+      </div>
+      
+      <div class="forgot-password">
+        <ion-label (click)="goToRegistre()" class="forgot-password-label">¿Olvidaste tu contraseña?</ion-label>
+      </div>
+    </section>
   </div>
 </ion-content>

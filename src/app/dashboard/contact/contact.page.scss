@@ -1,0 +1,26 @@
+.buttons-contact{
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0 5px 0;
+}
+.avatar-container{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+ion-img{
+  height: 150px;
+}
+ion-card-header{
+  font-size: x-large;
+  text-align: center;
+}
+.post-title {
+  font-size: 2rem; // Ajusta el tamaño de la letra según tus preferencias
+  font-weight: bold; // Aplica negrita
+  line-height: 1.2; // Ajusta el interlineado
+  color: #333; // Cambia el color del texto
+  margin-bottom: 1rem; // Agrega un margen inferior
+}
