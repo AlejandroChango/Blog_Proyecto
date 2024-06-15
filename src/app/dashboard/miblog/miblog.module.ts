@@ -3,17 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { ContactPageRoutingModule } from './contact-routing.module';
-import { ContactPage } from './contact.page';
+import { miblogPageRoutingModule } from './miblog-routing.module';
+import { miblogPage } from './miblog.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ContactPageRoutingModule
+    miblogPageRoutingModule
   ],
-  declarations: [ContactPage],
+  declarations: [miblogPage],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ContactPageModule {}
+export class miblogPageModule {}

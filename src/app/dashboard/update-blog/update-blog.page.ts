@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { ContactService } from 'src/app/services/contact.service';
+import { miblogService } from 'src/app/services/miblog.service';
 import { Geolocation, GeolocationPosition } from '@capacitor/geolocation';
 import {
   Camera,
@@ -13,57 +13,57 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { from } from 'rxjs';
 
 @Component({
-  selector: 'app-update-contact',
-  templateUrl: './update-contact.page.html',
-  styleUrls: ['./update-contact.page.scss'],
+  selector: 'app-update-blog',
+  templateUrl: './update-blog.page.html',
+  styleUrls: ['./update-blog.page.scss'],
 })
-export class UpdateContactPage implements OnInit {
-  contacto: any = {};
-  contactoId: any;
+export class updateblogPage implements OnInit {
+  miblog: any = {};
+  miblogId: any;
   selectedFile: Photo | null = null;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private alertController: AlertController,
-    private contactService: ContactService,
+    private miblogService: miblogService,
     private storage: AngularFireStorage
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
-      this.contactoId = params.get('id');
-      if (this.contactoId) {
-        this.loadContacto(this.contactoId);
+      this.miblogId = params.get('id');
+      if (this.miblogId) {
+        this.loadmiblog(this.miblogId);
       } else {
-        this.presentAlert('ID de contacto no válido');
+        this.presentAlert('ID de blog no válido');
       }
     });
   }
 
-  async loadContacto(contactoId: string) {
-    this.contactService.getContactById(contactoId).subscribe(
-      (contacto) => {
-        // Asegúrate de que el contacto no sea null antes de asignarlo
-        if (contacto) {
-          this.contacto = contacto;
+  async loadmiblog(miblogId: string) {
+    this.miblogService.getmiblogById(miblogId).subscribe(
+      (miblog) => {
+        // Asegúrate de que el miblog no sea null antes de asignarlo
+        if (miblog) {
+          this.miblog = miblog;
         } else {
-          this.presentAlert('Contacto no encontrado');
+          this.presentAlert('blog no encontrado');
         }
       },
       (error) => {
-        this.presentAlert('Error al cargar el contacto: ' + error);
+        this.presentAlert('Error al cargar el blog: ' + error);
       }
     );
   }
 
   async guardarCambios() {
-    if (this.contacto.userId) {
+    if (this.miblog.userId) {
       try {
         // Sube la nueva foto a Firebase Storage si hay una seleccionada
         let newPhotoUrl: string | undefined;
         if (this.selectedFile) {
           const imageString = await this.toBase64(this.selectedFile);
-          const imagePath = `contact-images/${this.contacto.userId}/${this.contacto.name}`;
+          const imagePath = `miblog-images/${this.miblog.userId}/${this.miblog.blog}`;
           const imageUploadTask = this.storage
             .ref(imagePath)
             .putString(imageString, 'data_url');
@@ -71,25 +71,25 @@ export class UpdateContactPage implements OnInit {
           newPhotoUrl = await imageUrl?.ref.getDownloadURL();
         }
 
-        // Obtén la posición geográfica antes de actualizar el contacto
+        // Obtén la posición geográfica antes de actualizar el miblog
         const position = await this.getCurrentPosition();
 
-        // Actualiza la geolocalización en el objeto contacto
-        this.contacto.geolocation = {
+        // Actualiza la geolocalización en el objeto miblog
+        this.miblog.geolocation = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
 
         // Actualiza la URL de la foto si hay una nueva
         if (newPhotoUrl) {
-          this.contacto.downloadUrl = newPhotoUrl;
+          this.miblog.downloadUrl = newPhotoUrl;
         }
 
-        // Actualiza el contacto en la base de datos
-        await this.contactService.updateContact(this.contactoId, this.contacto);
+        // Actualiza el miblog en la base de datos
+        await this.miblogService.updatemiblog(this.miblogId, this.miblog);
 
         this.presentAlert('Blog actualizado correctamente');
-        this.router.navigate(['/dashboard/contact']);
+        this.router.navigate(['/dashboard/miblog']);
       } catch (error) {
         this.presentAlert('Error al actualizar el Blog: ' + error);
       }

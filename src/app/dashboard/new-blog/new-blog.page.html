@@ -9,12 +9,12 @@
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <ion-item>
         <ion-label position="floating">Titulo:</ion-label>
-        <ion-input type="text" [(ngModel)]="contactLastName" name="contactLastName" ></ion-input>
+        <ion-input type="text" [(ngModel)]="nombreBlog" name="nombreBlog" ></ion-input>
       </ion-item>
   
       <ion-item>
         <ion-label position="floating">¿Qué te gustaría publicar?</ion-label>
-        <ion-textarea [(ngModel)]="contactName" name="contactName" rows="6" class="custom-padding" required></ion-textarea>
+        <ion-textarea [(ngModel)]="cuerpoBlog" name="cuerpoBlog" rows="6" class="custom-padding" required></ion-textarea>
 
       </ion-item>
     </ion-list>
@@ -29,6 +29,6 @@
         <img [src]="selectedFile.webPath" [alt]="selectedFile.dataUrl" width="100">
       </ion-item>
     </ion-list>
-    <ion-button expand="full" (click)="createNewContact()"  [disabled]="!blogForm.form.valid">CREAR BLOG</ion-button>
+    <ion-button expand="full" (click)="createnewblog()"  [disabled]="!blogForm.form.valid">CREAR BLOG</ion-button>
  </form>
 </ion-content>

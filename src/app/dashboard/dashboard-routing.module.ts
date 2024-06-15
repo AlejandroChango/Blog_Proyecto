@@ -6,7 +6,7 @@ import { DashboardPage } from './dashboard.page';
 const routes: Routes = [
   {
     path: '', // Ruta vacía para redirigir a 'dashboard/contact'
-    redirectTo: 'contact',
+    redirectTo: 'miblog',
     pathMatch: 'full',
   },
   {
@@ -15,22 +15,22 @@ const routes: Routes = [
     component: DashboardPage,
     children: [
       {
-        path: 'contact',
+        path: 'miblog',
         loadChildren: () =>
-          import('./contact/contact.module').then((m) => m.ContactPageModule),
+          import('./miblog/miblog.module').then((m) => m.miblogPageModule),
       },
       {
-        path: 'new-contact',
+        path: 'new-blog',
         loadChildren: () =>
-          import('./new-contact/new-contact.module').then(
-            (m) => m.NewContactPageModule
+          import('./new-blog/new-blog.module').then(
+            (m) => m.newblogPageModule
           ),
       },
       {
-        path: 'update-contact/:id',
+        path: 'update-blog/:id',
         loadChildren: () =>
-          import('./update-contact/update-contact.module').then(
-            (m) => m.UpdateContactPageModule
+          import('./update-blog/update-blog.module').then(
+            (m) => m.updateblogPageModule
           ),
       },
     ],

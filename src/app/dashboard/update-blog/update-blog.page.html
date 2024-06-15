@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard/contact"></ion-back-button>
+      <ion-back-button defaultHref="/dashboard/miblog"></ion-back-button>
     </ion-buttons>
     <ion-title>Editar Blog</ion-title>
   </ion-toolbar>
@@ -10,17 +10,17 @@
 <ion-content [fullscreen]="true">
   <ion-item>
     <ion-label position="floating">Titulo:</ion-label>
-    <ion-input [(ngModel)]="contacto.lastName" name="lastName" required></ion-input>
+    <ion-input [(ngModel)]="miblog.nombreblog" name="lastName" required></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="floating">Blog</ion-label>
-    <ion-textarea [(ngModel)]="contacto.name" name="name" rows="6" style="padding: 10px;"></ion-textarea>
+    <ion-textarea [(ngModel)]="miblog.blog" name="name" rows="6" style="padding: 10px;"></ion-textarea>
 
   </ion-item>
 
     <ion-item *ngIf="!selectedFile"class="image-item">
     <ion-label>Foto anterior</ion-label>
-    <img *ngIf="contacto.downloadUrl" [src]="contacto.downloadUrl" [alt]="contacto.name" >
+    <img *ngIf="miblog.downloadUrl" [src]="miblog.downloadUrl" [alt]="miblog.name" >
   </ion-item>
   <ion-item class="image-item">
     <ion-label>Foto del Blog</ion-label>

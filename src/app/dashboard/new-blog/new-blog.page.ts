@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, Platform } from '@ionic/angular';
-import { ContactService } from 'src/app/services/contact.service';
+import { miblogService } from 'src/app/services/miblog.service';
 import { Geolocation, GeolocationPosition } from '@capacitor/geolocation';
 import {
   Camera,
@@ -11,19 +11,19 @@ import {
 import {  Router } from '@angular/router';
 
 @Component({
-  selector: 'app-new-contact',
-  templateUrl: './new-contact.page.html',
-  styleUrls: ['./new-contact.page.scss'],
+  selector: 'app-new-blog',
+  templateUrl: './new-blog.page.html',
+  styleUrls: ['./new-blog.page.scss'],
 })
-export class NewContactPage implements OnInit {
-  contactName: string = '';
-  contactLastName: string = '';
+export class newblogPage implements OnInit {
+  cuerpoBlog: string = '';
+  nombreBlog: string = '';
   contactPhoneNumber: string = '';
   selectedFile: Photo | null = null;
 
   constructor(
     private router: Router,
-    private contactService: ContactService,
+    private miblogService: miblogService,
     private alertController: AlertController,
     private platform: Platform
   ) {}
@@ -32,7 +32,7 @@ export class NewContactPage implements OnInit {
     Camera.requestPermissions();
   }
 
-  async createNewContact() {
+  async createnewblog() {
     try {
       // Obtén la posición geográfica antes de crear el contacto
       const position = await this.getCurrentPosition();
@@ -40,16 +40,17 @@ export class NewContactPage implements OnInit {
         throw new Error('Debes seleccionar una imagen de perfil.');
       }
       // Llama a la función para crear el contacto, pasando la posición geográfica
-      await this.contactService.createContact(
-        this.contactName,
-        this.contactLastName,
+      await this.miblogService.createmiblog(
+        this.nombreBlog,
+        this.cuerpoBlog,
+    
         position,
         this.selectedFile
       );
 
       // Limpia los datos después de la creación del contacto
       this.clearFormData();
-      this.router.navigate(['/dashboard/contact']);
+      this.router.navigate(['/dashboard/miblog']);
       // Muestra un mensaje de éxito
       this.presentAlert('Éxito', 'El Blog se creó correctamente.');
     } catch (error: any) {
@@ -68,8 +69,8 @@ export class NewContactPage implements OnInit {
 
   clearFormData() {
     // Limpia los campos del formulario
-    this.contactName = '';
-    this.contactLastName = '';
+    this.cuerpoBlog = '';
+    this.nombreBlog = '';
     this.selectedFile = null
   }
 

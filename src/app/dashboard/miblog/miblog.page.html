@@ -6,43 +6,43 @@
 
 <ion-content>
   <ion-slides [options]="slideOpts">
-    <ng-container *ngIf="contactos.length > 0; else noContactsFound">
-      <ion-slide *ngFor="let contacto of contactos">
+    <ng-container *ngIf="miblog.length > 0; else noContactsFound">
+      <ion-slide *ngFor="let miblog of miblog">
         <ion-card>
           <div class="avatar-container">
-            <ion-img src="{{contacto.downloadUrl}}" alt="Imagen del perfil" >
+            <ion-img src="{{miblog.downloadUrl}}" alt="Imagen del perfil" >
 
             </ion-img>
           </div>
-          <ion-card-header class="contacto-header">
-          {{ contacto.lastName }}
+          <ion-card-header class="miblog-header">
+          {{ miblog.nombreblog }}
           </ion-card-header>
-          <ion-card-header class="contacto-header">
-            {{ contacto.name }}
+          <ion-card-header class="miblog-header">
+            {{ miblog.blog }}
           </ion-card-header>
 
           <ion-card-content>
               <ion-item>
               <ion-label>Latitud:</ion-label>
-              <ion-label>{{ contacto.geolocation.latitude }}</ion-label>
+              <ion-label>{{ miblog.geolocation.latitude }}</ion-label>
             </ion-item>
             <ion-item>
               <ion-label>Longitud:</ion-label>
-              <ion-label>{{ contacto.geolocation.longitude }}</ion-label>
+              <ion-label>{{ miblog.geolocation.longitude }}</ion-label>
             </ion-item>
 
             <ion-button expand="full"
-              (click)="openGoogleMaps(contacto.geolocation.latitude, contacto.geolocation.longitude)">
+              (click)="openGoogleMaps(miblog.geolocation.latitude, miblog.geolocation.longitude)">
               Abrir ubicación
             </ion-button>
           </ion-card-content>
 
           <ion-row class="buttons-contact">
-            <ion-button color="danger" (click)="eliminarContacto(contacto.id)">
+            <ion-button color="danger" (click)="eliminarmiblog(miblog.id)">
               <ion-icon name="trash"></ion-icon>
               Eliminar
             </ion-button>
-            <ion-button color="primary" (click)="editarContacto(contacto.id)">
+            <ion-button color="primary" (click)="editarmiblog(miblog.id)">
               <ion-icon name="create-outline" slot="start"></ion-icon>
               Editar
                   </ion-button>

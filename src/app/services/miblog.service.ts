@@ -10,16 +10,16 @@ import { Photo } from '@capacitor/camera';
 @Injectable({
   providedIn: 'root',
 })
-export class ContactService {
+export class miblogService {
   constructor(
     private firestore: AngularFirestore,
     private afAuth: AngularFireAuth,
     private storage: AngularFireStorage
   ) {}
 
-  async createContact(
-    name: string,
-    lastName: string,
+  async createmiblog(
+    blog: string,
+    nombreblog: string,
     geolocation: GeolocationPosition,
     imageFile: Photo
   ): Promise<any> {
@@ -28,29 +28,29 @@ export class ContactService {
       if (!user) {
         throw new Error('Usuario no autenticado');
       }
-      const contactsCollection: AngularFirestoreCollection<any> =this.firestore.collection('contacts');
+      const miblogsCollection: AngularFirestoreCollection<any> =this.firestore.collection('miblogs');
 
-      const existingContacts = await contactsCollection.ref
+      const existingmiblogs = await miblogsCollection.ref
         .where('userId', '==', user.uid)
-        .where('name', '==', name)
-        .where('lastName', '==', lastName)
+        .where('blog', '==', blog)
+        .where('nombreblog', '==', nombreblog)
         .get();
 
-      if (!existingContacts.empty) {
-        // Ya existe un contacto con la misma información
-        throw new Error('Este contacto ya existe.');
+      if (!existingmiblogs.empty) {
+        // Ya existe un blog con la misma información
+        throw new Error('Este blog ya existe.');
       }
       const imageString = await this.toBase64(imageFile);
-      const imagePath = `contact-images/${user.uid}/${name}`;
+      const imagePath = `miblog-images/${user.uid}/${blog}`;
       const imageUploadTask = this.storage
         .ref(imagePath)
         .putString(imageString, 'data_url');
       const imageUrl = await from(imageUploadTask).toPromise();
       const downloadUrl = await imageUrl?.ref.getDownloadURL();
 
-      const contactData = {
-        name,
-        lastName,
+      const miblogData = {
+        blog,
+        nombreblog,
         userId: user.uid,
         geolocation: {
           latitude: geolocation.coords.latitude,
@@ -60,8 +60,8 @@ export class ContactService {
       };
 
       const result = await this.firestore
-        .collection('contacts')
-        .add(contactData);
+        .collection('miblogs')
+        .add(miblogData);
 
       return result;
     } catch (error) {
@@ -69,7 +69,7 @@ export class ContactService {
     }
   }
 
-  getContactsForCurrentUser(): Observable<any[]> {
+  getmiblogsForCurrentUser(): Observable<any[]> {
     return this.afAuth.user.pipe(
       // Utilizamos switchMap para cambiar a un nuevo observable
       switchMap((user) => {
@@ -79,7 +79,7 @@ export class ContactService {
 
         // Devolvemos el observable directamente
         return this.firestore
-          .collection('contacts', (ref) => ref.where('userId', '==', user.uid))
+          .collection('miblogs', (ref) => ref.where('userId', '==', user.uid))
           .snapshotChanges()
           .pipe(
             map((snaps) => {
@@ -93,29 +93,29 @@ export class ContactService {
       })
     );
   }
-  deleteContact(contactId: string) {
-    return this.firestore.collection('contacts').doc(contactId).delete();
+  deletemiblog(miblogId: string) {
+    return this.firestore.collection('miblogs').doc(miblogId).delete();
   }
-  updateContact(contactId: string, updatedContact: any) {
+  updatemiblog(miblogId: string, updatedmiblog: any) {
     return this.firestore
-      .collection('contacts')
-      .doc(contactId)
-      .update(updatedContact);
+      .collection('miblogs')
+      .doc(miblogId)
+      .update(updatedmiblog);
   }
-  getContactById(contactId: string): Observable<any> {
+  getmiblogById(miblogId: string): Observable<any> {
     return new Observable((observer) => {
       this.afAuth.currentUser.then((user) => {
         if (user) {
-          const contactRef = this.firestore
-            .collection('contacts')
-            .doc(contactId);
-          contactRef.get().subscribe(
+          const miblogRef = this.firestore
+            .collection('miblogs')
+            .doc(miblogId);
+          miblogRef.get().subscribe(
             (doc) => {
               if (doc.exists) {
-                const contactData = doc.data();
-                observer.next(contactData);
+                const miblogData = doc.data();
+                observer.next(miblogData);
               } else {
-                observer.error('Contacto no encontrado');
+                observer.error('blog no encontrado');
               }
             },
             (error) => {
