@@ -7,6 +7,14 @@ https://miprimerappmovil-3fd8e.web.app/home
 * Podemos ver la APK en la carpeta APK que esta en el proyecto principal
 # Video explicativo del funcionamiento
    link:  https://vm.tiktok.com/ZMrFSBnNc/
+# Video explicativo del proceso de desarrollo
+https://vm.tiktok.com/ZMrFALnTa/
+ 
+ # Configuracion 
+ **Instalación de Dependencias: **
+ Asegúrate de tener Node.js instalado. Luego, instala Ionic y las dependencias del proyecto.
+ npm install -g @ionic/cli
+ npm install
   
 
  #  Capturas de pantalla del funcionamiento:
