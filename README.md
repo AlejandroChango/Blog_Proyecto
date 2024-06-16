@@ -6,12 +6,10 @@ https://miprimerappmovil-3fd8e.web.app/home
 # APk 
 * Podemos ver la APK en la carpeta APK que esta en el proyecto principal
 # Video explicativo del funcionamiento
-  #  link:
-  https://vm.tiktok.com/ZMrFSBnNc/
+   link:  https://vm.tiktok.com/ZMrFSBnNc/
   
 
-
-Capturas de pantalla del funcionamiento:
+ #  Capturas de pantalla del funcionamiento:
  # Splash Screen:
 ![splah](https://github.com/AlejandroChango/ProyectoBlog/assets/23177104/8fd96538-ae1b-4565-a9ce-52da812017a2)
  # Login:
