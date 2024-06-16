@@ -1,25 +1,19 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Registrate
+      Restablecer Contraseña
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <section class="center-login">
-    <form (ngSubmit)="onSignup()">
+    <form (ngSubmit)="onResetPassword()">
       <ion-item>
         <ion-label position="floating">Correo Electrónico</ion-label>
         <ion-input type="email" [(ngModel)]="user.email" name="email" required></ion-input>
       </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input type="password" [(ngModel)]="user.password" name="password" required></ion-input>
-      </ion-item>
-      <ion-button color="tertiary"  expand="block" type="submit" class="button-register">Regístrate</ion-button>
+      <ion-button color="tertiary" expand="block" type="submit" class="button-reset">Restablecer Contraseña</ion-button>
     </form>
   </section>
-
 </ion-content>

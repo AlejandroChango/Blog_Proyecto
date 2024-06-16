@@ -21,33 +21,46 @@ export class miblogService {
     blog: string,
     nombreblog: string,
     geolocation: GeolocationPosition,
-    imageFile: Photo
+    imageFile: Photo | null,
+    attachedFile: File | null
   ): Promise<any> {
     try {
       const user = await this.afAuth.currentUser;
       if (!user) {
         throw new Error('Usuario no autenticado');
       }
-      const miblogsCollection: AngularFirestoreCollection<any> =this.firestore.collection('miblogs');
-
+      const miblogsCollection: AngularFirestoreCollection<any> = this.firestore.collection('miblogs');
+  
       const existingmiblogs = await miblogsCollection.ref
         .where('userId', '==', user.uid)
         .where('blog', '==', blog)
         .where('nombreblog', '==', nombreblog)
         .get();
-
+  
       if (!existingmiblogs.empty) {
         // Ya existe un blog con la misma información
         throw new Error('Este blog ya existe.');
       }
-      const imageString = await this.toBase64(imageFile);
-      const imagePath = `miblog-images/${user.uid}/${blog}`;
-      const imageUploadTask = this.storage
-        .ref(imagePath)
-        .putString(imageString, 'data_url');
-      const imageUrl = await from(imageUploadTask).toPromise();
-      const downloadUrl = await imageUrl?.ref.getDownloadURL();
-
+  
+      let downloadUrl = null;
+      if (imageFile) {
+        const imageString = await this.toBase64(imageFile);
+        const imagePath = `miblog-images/${user.uid}/${blog}`;
+        const imageUploadTask = this.storage
+          .ref(imagePath)
+          .putString(imageString, 'data_url');
+        const imageUrl = await from(imageUploadTask).toPromise();
+        downloadUrl = await imageUrl?.ref.getDownloadURL();
+      }
+  
+      let attachedFileDownloadUrl = null;
+      if (attachedFile) {
+        const attachedFilePath = `miblog-files/${user.uid}/${attachedFile.name}`;
+        const attachedFileUploadTask = this.storage.ref(attachedFilePath).put(attachedFile);
+        const attachedFileUrl = await from(attachedFileUploadTask).toPromise();
+        attachedFileDownloadUrl = await attachedFileUrl?.ref.getDownloadURL();
+      }
+  
       const miblogData = {
         blog,
         nombreblog,
@@ -57,12 +70,13 @@ export class miblogService {
           longitude: geolocation.coords.longitude,
         },
         downloadUrl,
+        attachedFileDownloadUrl,
       };
-
+  
       const result = await this.firestore
         .collection('miblogs')
         .add(miblogData);
-
+  
       return result;
     } catch (error) {
       throw error;

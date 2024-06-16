@@ -35,6 +35,12 @@ const routes: Routes = [
       import('./splash-screen/splash-screen.module').then(
         (m) => m.SplashScreenPageModule
       ),
+  },{
+    path: 'updatesignup',
+    loadChildren: () =>
+      import('./updatesignup/updatesignup.module').then(
+        (m) => m.updatesignupPageModule
+      ),
   },
 ];
 

@@ -11,6 +11,8 @@ import {
 } from '@capacitor/camera';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { from } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-update-blog',
@@ -21,6 +23,8 @@ export class updateblogPage implements OnInit {
   miblog: any = {};
   miblogId: any;
   selectedFile: Photo | null = null;
+  selectedUploadFile: File | null | undefined;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -69,6 +73,14 @@ export class updateblogPage implements OnInit {
             .putString(imageString, 'data_url');
           const imageUrl = await from(imageUploadTask).toPromise();
           newPhotoUrl = await imageUrl?.ref.getDownloadURL();
+          if (this.selectedUploadFile) {
+            const filePath = `miblog-files/${this.miblog.userId}/${this.miblog.blog}`;
+            const fileRef = this.storage.ref(filePath);
+            const task = fileRef.put(this.selectedUploadFile);
+            const attachedFileDownloadUrl = await from(task).toPromise().then((snapshot) => snapshot?.ref.getDownloadURL());
+
+            this.miblog.attachedFileDownloadUrl = attachedFileDownloadUrl;
+          }
         }
 
         // Obtén la posición geográfica antes de actualizar el miblog
@@ -129,6 +141,11 @@ export class updateblogPage implements OnInit {
       quality: 100,
     });
     this.selectedFile = photo;
+  }
+  async onFileSelected(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    const file = fileInput.files?.item(0);
+    this.selectedUploadFile = file;
   }
   private async toBase64(image: Photo): Promise<string> {
     try {

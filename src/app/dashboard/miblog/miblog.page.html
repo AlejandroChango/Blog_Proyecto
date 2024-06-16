@@ -8,45 +8,35 @@
   <ion-slides [options]="slideOpts">
     <ng-container *ngIf="miblog.length > 0; else noContactsFound">
       <ion-slide *ngFor="let miblog of miblog">
+        <ion-card-header>
+          <ion-card-title>{{ miblog.blog }}</ion-card-title>
+        </ion-card-header>
         <ion-card>
-          <div class="avatar-container">
-            <ion-img src="{{miblog.downloadUrl}}" alt="Imagen del perfil" >
-
-            </ion-img>
-          </div>
-          <ion-card-header class="miblog-header">
-          {{ miblog.nombreblog }}
+          <img [src]="miblog.downloadUrl" alt="Imagen del perfil" />
+          <ion-card-header>
+            <ion-card-subtitle>{{ miblog.nombreblog }}</ion-card-subtitle>
           </ion-card-header>
-          <ion-card-header class="miblog-header">
-            {{ miblog.blog }}
-          </ion-card-header>
-
           <ion-card-content>
-              <ion-item>
+            <ion-item>
               <ion-label>Latitud:</ion-label>
               <ion-label>{{ miblog.geolocation.latitude }}</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>Longitud:</ion-label>
+                         <ion-label>Longitud:</ion-label>
               <ion-label>{{ miblog.geolocation.longitude }}</ion-label>
             </ion-item>
-
-            <ion-button expand="full"
-              (click)="openGoogleMaps(miblog.geolocation.latitude, miblog.geolocation.longitude)">
-              Abrir ubicación
-            </ion-button>
+            <div style="display: flex; justify-content: center; gap: 10px;">
+              <ion-button color="tertiary" (click)="openGoogleMaps(miblog.geolocation.latitude, miblog.geolocation.longitude)">
+                Abrir ubicación
+              </ion-button>
+              <ion-button color="danger" (click)="eliminarmiblog(miblog.id)">
+                <ion-icon name="trash"></ion-icon>
+                Eliminar
+              </ion-button>
+              <ion-button color="tertiary" (click)="editarmiblog(miblog.id)">
+                <ion-icon name="create-outline" slot="start"></ion-icon>
+                Editar
+              </ion-button>
+            </div>
           </ion-card-content>
-
-          <ion-row class="buttons-contact">
-            <ion-button color="danger" (click)="eliminarmiblog(miblog.id)">
-              <ion-icon name="trash"></ion-icon>
-              Eliminar
-            </ion-button>
-            <ion-button color="primary" (click)="editarmiblog(miblog.id)">
-              <ion-icon name="create-outline" slot="start"></ion-icon>
-              Editar
-                  </ion-button>
-          </ion-row>
         </ion-card>
       </ion-slide>
     </ng-container>
@@ -55,11 +45,10 @@
       <ion-slide>
         <ion-card>
           <ion-card-content>
-            <p>¡Postea algo!, agrega un nuevo bloc de lo que te guste!.</p>
+            <p>¡Postea algo!, agrega algo nuevo,lo que te guste!.</p>
           </ion-card-content>
         </ion-card>
       </ion-slide>
     </ng-template>
-
   </ion-slides>
 </ion-content>

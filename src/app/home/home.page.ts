@@ -83,7 +83,11 @@ export class HomePage {
     this.router.navigate(['/signup']); // Asegúrate de tener una ruta definida para la página de registro
   }
 
-  goToRegistre() {
-    this.router.navigate(['/signup']); // Asegúrate de tener una ruta definida para la página de registro
+
+
+  goToupdatesignup()
+  {
+    this.router.navigate(['/updatesignup']); // Asegúrate de tener una ruta definida para la página de registro
   }
+
 }

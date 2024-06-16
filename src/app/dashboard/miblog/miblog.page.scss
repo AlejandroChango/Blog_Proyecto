@@ -10,9 +10,7 @@
   justify-content: center;
   align-items: center;
 }
-ion-img{
-  height: 150px;
-}
+
 ion-card-header{
   font-size: x-large;
   text-align: center;
@@ -23,4 +21,9 @@ ion-card-header{
   line-height: 1.2; // Ajusta el interlineado
   color: #333; // Cambia el color del texto
   margin-bottom: 1rem; // Agrega un margen inferior
+}
+ion-img {
+  width: 80%;
+  height: 80%;
+  object-fit: cover;
 }

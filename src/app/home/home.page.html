@@ -19,20 +19,22 @@
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input type="password" [(ngModel)]="user.password" name="password" required></ion-input>
         </ion-item>
-        <ion-button expand="block" type="submit" class="button-login">Iniciar Sesión</ion-button>
-      </form>
-      
-      <ion-button  color="warning"  expand="full" (click)="loginWithGoogle()" class="google-login">
-        <ion-icon slot="start" name="logo-google"></ion-icon>
+        <ion-button color="tertiary"  expand="block" type="submit" class="button-login">Iniciar Sesión</ion-button>
+        <ion-button  color="dark"  class="button-login" expand="block" type="submit" (click)="loginWithGoogle()" class="google-login">
+               <ion-icon slot="start" name="logo-google"></ion-icon>
         Inicia con Google
       </ion-button>
-      
+      </form>
+    
+    <form>
+    
       <div class="button-nuevoregistro">
-        <ion-button expand="block" type="submit" (click)="goToSignupPage()" class="button-login">Regístrate</ion-button>
+        <ion-button color="tertiary"  expand="block" type="submit" (click)="goToSignupPage()" class="button-login">Regístrate</ion-button>
       </div>
-      
+    </form>
+    
       <div class="forgot-password">
-        <ion-label (click)="goToRegistre()" class="forgot-password-label">¿Olvidaste tu contraseña?</ion-label>
+        <ion-label (click)="goToupdatesignup()" class="forgot-password-label">¿Olvidaste tu contraseña?</ion-label>
       </div>
     </section>
   </div>

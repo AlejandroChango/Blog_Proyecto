@@ -54,6 +54,10 @@ yarn-error.log
 #android
 /android
 /.android
+#public
+/public
+/.public
+
 
 
 # Miscellaneous

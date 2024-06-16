@@ -15,20 +15,35 @@
       <ion-item>
         <ion-label position="floating">¿Qué te gustaría publicar?</ion-label>
         <ion-textarea [(ngModel)]="cuerpoBlog" name="cuerpoBlog" rows="6" class="custom-padding" required></ion-textarea>
-
       </ion-item>
     </ion-list>
-
+    <ion-item>
+      <ion-label>Enviar ubicación</ion-label>
+      <ion-checkbox  [(ngModel)]="enviarUbicacion"  name="enviarUbicacion"></ion-checkbox>
+    </ion-item>
     <ion-list class="image-list">
       <ion-list-header>Agregar imágenes</ion-list-header>
       <ion-item>
-        <ion-button (click)="takePhoto()">Tomar foto</ion-button>
-        <ion-button (click)="selectFromGallery()">Seleccionar de la galería</ion-button>
+        <ion-button color="tertiary"  (click)="takePhoto()">Tomar foto</ion-button>
+        <ion-button color="tertiary"  (click)="selectFromGallery()">Seleccionar de la galería</ion-button>
       </ion-item>
       <ion-item *ngIf="selectedFile">
         <img [src]="selectedFile.webPath" [alt]="selectedFile.dataUrl" width="100">
       </ion-item>
     </ion-list>
-    <ion-button expand="full" (click)="createnewblog()"  [disabled]="!blogForm.form.valid">CREAR BLOG</ion-button>
- </form>
+
+    <ion-list class="file-upload-list">
+      <ion-list-header>Subir archivos</ion-list-header>
+      <ion-item>
+        <input type="file" (change)="onFileSelected($event)" accept=".pdf,.jpeg" />
+      </ion-item>
+      <ion-item *ngIf="selectedUploadFile">
+        <p>{{ selectedUploadFile.name }}</p>
+      </ion-item>
+    </ion-list>
+
+    
+
+    <ion-button expand="full" color="success" (click)="createnewblog()" [disabled]="!blogForm.form.valid">CREAR BLOG</ion-button>
+  </form>
 </ion-content>

@@ -18,17 +18,29 @@
 
   </ion-item>
 
-    <ion-item *ngIf="!selectedFile"class="image-item">
+  <ion-item *ngIf="!selectedFile" class="image-item">
     <ion-label>Foto anterior</ion-label>
-    <img *ngIf="miblog.downloadUrl" [src]="miblog.downloadUrl" [alt]="miblog.name" >
+    <img *ngIf="miblog.downloadUrl" [src]="miblog.downloadUrl" [alt]="miblog.name">
   </ion-item>
   <ion-item class="image-item">
     <ion-label>Foto del Blog</ion-label>
     <ion-button (click)="takePhoto()">Tomar foto</ion-button>
     <ion-button (click)="selectFromGallery()">Seleccionar de la galería</ion-button>
-
+  
     <img *ngIf="selectedFile" [src]="selectedFile.webPath" [alt]="selectedFile.dataUrl" width="100">
+    <ion-list class="file-upload-list">
+      <ion-list class="file-upload-list">
+        <ion-list-header>Actualizar archivo</ion-list-header>
+        <ion-item>
+          <input type="file" (change)="onFileSelected($event)" accept=".pdf,.jpeg" />
+      </ion-item>
+      <ion-item *ngIf="selectedUploadFile">
+        <p>{{ selectedUploadFile.name }}</p>
+      </ion-item>
+    </ion-list>
+      </ion-list>
   </ion-item>
+
 
   <ion-button expand="full" (click)="guardarCambios()">Guardar cambios</ion-button>
 </ion-content>
